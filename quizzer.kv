@@ -1,49 +1,52 @@
-BoxLayoutMain:
+<QuestionInterface>
+    # variable_name:variable_value # example declaration
+    
+    GridLayout:
+        cols:1
+        size: root.width, root.height
+        #########################################################
+        GridLayout: # Header Bar with menu
+            cols:3
+            Button: # Ham Menu
+                text:"MENU"
+                size_hint_x: None
 
-<BoxLayoutMain>
-    orientation: "vertical"
-    ###################
-    Button:
-        text: "ham_menu"
-    Button:
-        text: "yes"
-        size_hint: .15, .10
-        pos_hint: {"center"}
-        # x, center_x, right
-        # y, center_y, top
-    Button:
-        text: "no"
-        size_hint: .15, .10 #width , height
-    ###################
-<HamMenu>
-    ###################
-    # Subject selection in this menu
+            Label: # question properties (ie subject, revision date, etc)
+                text:"This is some metadata about the question"
+            Label: # relevant stats
+                text:"These are some relevant stats"
+#########################################################
+# Main Body
+        Label:
+            text:"This is a question"
+        Label:
+            text:"This is question media"
+        Label:
+            text:"This is an answer"
+        Label:
+            text:"This is answer media"
 
-<HamMenuOptions>
-    # Two Widgets here
-    Button:
-        text: "Settings"
-    Button:
-        text: "Stats"
-<MainWidget>:
-    # Buttons
 
-    Button:
-        text: "Settings"
-        size: 400, 200
-        pos: 0, 0
-    Button:
-        text: "Stats"
-    # Answer Buttons
-    Button:
-        text: "YES"
-        size: "40dp", "40dp"
-    Button:
-        text: "NO"
-        size: "40dp", "40dp"
-    # Labels
+        #########################################################
+        GridLayout: # User Input section
+            cols:2
+            size_hint_y: None
+            height: "150dp"
+            TextInput:
+                multiline:True
+            Button:
+                text:"Next"
+                size_hint_x: None
+                width: "40dp"
+        #########################################################
+        BoxLayout: # Score Bar
+            size_hint_y: None
+            height: "40dp"
+            Button: # Yes
+                text:"Yes"
+            Button: # No
+                text:"No"
+            Button: # Skip
+                text: "Skip"
 
-    Label:
-        text: "Quizzer"
-        size: "100dp", "300dp"
-        color: 1, 1, 3, 1
+
