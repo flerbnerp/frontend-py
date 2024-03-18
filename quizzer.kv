@@ -1,6 +1,21 @@
 <QuestionInterface>
-    # variable_name:variable_value # example declaration
-    
+    # Variable declarations
+    # Header Variables
+    ham_menu:ham_menu
+    question_data:question_data
+    stats_feed:stats_feed
+
+    # Main Body Variables
+    question_text:question_text
+    question_media:question_media
+    answer_text:answer_text
+    answer_media:answer_media
+
+    # Scoring and input variables
+    user_input:user_input
+
+
+
     GridLayout:
         cols:1
         size: root.width, root.height
@@ -10,22 +25,48 @@
             Button: # Ham Menu
                 text:"MENU"
                 size_hint_x: None
+                id:ham_menu
 
             Label: # question properties (ie subject, revision date, etc)
                 text:"This is some metadata about the question"
+                id: question_data
+                text_size: self.width, self.height
+                valign: "top"
+                halign: "left"
+                
+
             Label: # relevant stats
                 text:"These are some relevant stats"
+                id: stats_feed
+                text_size: self.width, self.height
+                valign: "top"
+                halign: "left"
 #########################################################
 # Main Body
         Label:
             text:"This is a question"
+            id: question_text
+            text_size: self.width, self.height
+            valign: "top"
+            halign: "left"            
         Label:
             text:"This is question media"
+            id: question_media
+            text_size: self.width, self.height
+            valign: "top"
+            halign: "left"  
         Label:
-            text:"This is an answer"
+            text:""
+            id:answer_text
+            text_size: self.width, self.height
+            valign: "top"
+            halign: "left"              
         Label:
-            text:"This is answer media"
-
+            text:""
+            id:answer_media
+            text_size: self.width, self.height
+            valign: "top"
+            halign: "left"  
 
         #########################################################
         GridLayout: # User Input section
@@ -34,19 +75,24 @@
             height: "150dp"
             TextInput:
                 multiline:True
+                id:user_input
             Button:
-                text:"Next"
+                text:"Show"
                 size_hint_x: None
-                width: "40dp"
+                width: "60dp"
+                on_press: root.show_answer()
         #########################################################
         BoxLayout: # Score Bar
             size_hint_y: None
             height: "40dp"
             Button: # Yes
                 text:"Yes"
+                on_press: root.question_correct()
             Button: # No
                 text:"No"
+                on_press: root.question_incorrect()
             Button: # Skip
                 text: "Skip"
+                on_press: root.question_skip()
 
 
