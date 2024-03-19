@@ -1,3 +1,9 @@
+<Label>
+    font_name: "arialuni.ttf"
+<Button>
+    font_name: "arialuni.ttf"
+<TextInput>
+    font_name: "arialuni.ttf"
 <QuestionInterface>
     # Variable declarations
     # Header Variables
@@ -47,18 +53,21 @@
             text:"This is a question"
             id: question_text
             text_size: self.width, self.height
+            font_size: "16pt"
             valign: "top"
             halign: "left"            
         Label:
             text:"This is question media"
             id: question_media
             text_size: self.width, self.height
+            
             valign: "top"
             halign: "left"  
         Label:
             text:""
             id:answer_text
             text_size: self.width, self.height
+            font_size: "16pt"
             valign: "top"
             halign: "left"              
         Label:

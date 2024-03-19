@@ -4,6 +4,7 @@ import time
 from urllib.parse import quote
 
 import kivy
+from kivy.core.window import Window
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
@@ -58,8 +59,8 @@ class QuestionInterface(Widget):
             
         if self.current_question.get("subject") != None:
             self.subject = self.current_question.get("subject")
-            label_string = f'Subject(s): ' + " & ".join(self.subject)
-            self.ids.question_data.text = label_string
+            data_label_string = f"{'Subject(s)':<23}:{' & '.join(self.subject)}\n"
+            
             
         if self.current_question.get("related") != None:
             self.related = self.current_question.get("related")
@@ -80,19 +81,23 @@ class QuestionInterface(Widget):
             
         if self.current_question.get("answer_text") != None:
             self.answer_text = self.current_question.get("answer_text")
+        else:
+            self.answer_text = ""
             
         if self.current_question.get("next_revision_due") != None:
             self.next_revision_due = self.current_question.get("next_revision_due")
             
         if self.current_question.get("revision_streak") != None:    
             self.revision_streak = self.current_question.get("revision_streak")
-            
+            data_label_string += f"{'Streak':<25}:{str(self.revision_streak)}\n"
         if self.current_question.get("last_revised") != None:
             self.last_revised = self.current_question.get("last_revised")
+            data_label_string += f"{'Last Reviewed':<18}:{str(self.last_revised)}\n"
         
         # Fill in stats_feed section
-        label_string = f"{'Remaining Questions':<25}: {str(len(self.question_list))} \n {'Questions for Review':<25}: {str(len(self.returned_sorted_questions))}"
+        label_string = f"{'Questions for Review':<25}: {str(len(self.returned_sorted_questions)-(25-len(self.question_list)))}"
         self.ids.stats_feed.text = label_string
+        self.ids.question_data.text = data_label_string
         return None
     
     def show_answer(self):
@@ -106,26 +111,35 @@ class QuestionInterface(Widget):
             pass # Need to look up image display to get this portion to work #FIXME
     def question_correct(self):
         if self.has_seen_answer == True:
+            # Update Score, then display the next question
+            answer = "correct"
+            file_name = self.file_name
+            update_score(answer, file_name)
             self.question_list.pop(0)
             self.clear_fields()
             self.display_question()
+
             
         else:
             print("Button Disabled")
         
     def question_incorrect(self):
         if self.has_seen_answer == True:
+            answer = "incorrect"
+            file_name = self.file_name
+            update_score(answer, file_name)
             self.question_list.pop(0)
             self.clear_fields()
             self.display_question()
-            
+
         else:
             print("Button Disabled")
     def question_skip(self):
+        '''Skips the question, removing it from the list with no score update'''
         self.question_list.pop(0)
         self.clear_fields()
         self.display_question()
-        pass
+        
     def clear_fields(self):
         self.ids.answer_text.text = ""
         self.ids.answer_media.text = "" #FIXME
@@ -133,6 +147,9 @@ class QuestionInterface(Widget):
         self.ids.question_media.text = "" #FIXME
         self.ids.question_data.text = ""
         self.ids.stats_feed.text = ""
+        self.ids.user_input.text = ""
+    
+    
     
 class Quizzer(App):
     def build(self):

@@ -39,11 +39,11 @@ def update_score(answer, file_name):
     if answer == "correct":
         first_part = "http://127.0.0.1:8000/update_score/{status, file_name}?status=correct&file_name="
         query = first_part + encoded_file_name
-        response = requests.get(f"{query}")
+        requests.get(f"{query}")
     elif answer == "incorrect":
         first_part = "http://127.0.0.1:8000/update_score/{status, file_name}?status=incorrect&file_name="
         query = first_part + encoded_file_name
-        response = requests.get(f"{query}")        
+        requests.get(f"{query}")        
     else:
         print("Something went wrong")
 
