@@ -8,7 +8,7 @@ from kivy.core.window import Window
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
-from api_calls import launch_api, populate_quiz, update_score,initialize_quizzer
+from api_calls import launch_api, populate_quiz, update_score,initialize_quizzer, get_absolute_media_path
 
 
 class QuestionInterface(Widget):
@@ -70,15 +70,17 @@ class QuestionInterface(Widget):
             self.question_text = self.current_question.get("question_text")
             self.ids.question_text.text = self.question_text
             
-        if self.current_question.get("question_media") != None:
-            self.question_media = self.current_question.get("question_media")
+        if self.current_question.get("question_media") != None or self.current_question.get("question_media") != "Error":
+            self.question_media = str(self.current_question.get("question_media"))
+            print(f"search for me: {self.question_media}")
+            self.ids.question_media.source = get_absolute_media_path(self.question_media)
             # Load media
-        else:
-            self.ids.question_media.text = ""
+        # else:
+        #     self.question_media = ""
             
-        if self.current_question.get("answer_media") != None:
+        if self.current_question.get("answer_media") != None or self.current_question.get("answer_media") != "Error":
             self.answer_media = self.current_question.get("answer_media")
-            
+            print(self.answer_media)
         if self.current_question.get("answer_text") != None:
             self.answer_text = self.current_question.get("answer_text")
         else:
@@ -105,10 +107,12 @@ class QuestionInterface(Widget):
         When button pressed, function shows the answer and enables the use of the scoring buttons
         Second Phase of the Loop
         '''
+        if self.answer_text == list:
+            self.answer_text = "\n".join(self.answer_text)
         self.has_seen_answer = True
-        self.ids.answer_text.text = self.answer_text
-        if self.answer_media != None:
-            pass # Need to look up image display to get this portion to work #FIXME
+        self.ids.answer_text.text = str(self.answer_text)
+        if self.answer_media != None: #meaning we have media for this answer
+            self.ids.answer_media.source = str(get_absolute_media_path(str(self.answer_media)))
     def question_correct(self):
         if self.has_seen_answer == True:
             # Update Score, then display the next question

@@ -8,6 +8,22 @@ def launch_api():
     command = f"nohup uvicorn api:app --reload"
     subprocess.Popen(command, shell=True)
 
+def get_absolute_media_path(media_file_name):
+    # strip check, if the path is surrounded by brackets, strip the brackets off before passing
+    if media_file_name.startswith("[["):
+        media_file_name = media_file_name[2:]
+    if media_file_name.endswith("]]"):
+        media_file_name = media_file_name[:-2]
+    media_file_name = quote(media_file_name) #encode file name for comms to server api
+    first_part = "http://127.0.0.1:8000/get_media_path/"
+    query = first_part + media_file_name
+    data = requests.get(f"{query}")
+    data = data.json()
+    absolute_file_path = data
+    if absolute_file_path == None:
+        print("none")
+        absolute_file_path = ""
+    return absolute_file_path
 def populate_quiz():
     root = "http://127.0.0.1:8000/"
     command_pop_quiz = "populate_quiz"
@@ -16,23 +32,6 @@ def populate_quiz():
     question_list = data["question_list"]
     returned_sorted_questions = data["sorted_questions"]
     return question_list, returned_sorted_questions
-def extract_question_data(current_question):
-    '''
-    Takes the current question as an argument
-    returns the relevant key:values for that question if they exist
-    '''
-    file_name = current_question.get("file_name")
-    file_path = current_question.get("file_path")
-    type = current_question.get("type")
-    subject = current_question.get("subject")
-    related = current_question.get("related")
-    question_text = current_question.get("question_text")
-    question_media = current_question.get("question_media")
-    answer_media = current_question.get("answer_media")
-    answer_text = current_question.get("answer_text")
-    next_revision_due = current_question.get("next_revision_due")    
-    revision_streak = current_question.get("revision_streak")
-    last_revised = current_question.get("last_revised")
 
 def update_score(answer, file_name):
     encoded_file_name = quote(file_name)

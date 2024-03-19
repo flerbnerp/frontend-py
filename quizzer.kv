@@ -70,8 +70,9 @@
             Image:
                 source: ""
                 id: question_media
-                #text_size: self.width, self.height
-                
+                text_size: self.width, self.height
+                allow_stretch: True
+                # keep_ratio: False
                 valign: "top"
                 halign: "left"  
             Label:
@@ -84,6 +85,8 @@
             Image:
                 source: ""
                 id:answer_media
+                allow_stretch: True
+                # keep_ratio: False
                 background_color: (0, 0, 0, 1)
                 # text_size: self.width, self.height
                 valign: "top"
