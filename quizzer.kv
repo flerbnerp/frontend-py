@@ -1,9 +1,9 @@
 <Label>
-    font_name: "arialuni.ttf"
+    font_name: "fonts/arialuni.ttf"
 <Button>
-    font_name: "arialuni.ttf"
+    font_name: "fonts/arialuni.ttf"
 <TextInput>
-    font_name: "arialuni.ttf"
+    font_name: "fonts/arialuni.ttf"
 <QuestionInterface>
     # Variable declarations
     # Header Variables
@@ -28,9 +28,12 @@
         #########################################################
         GridLayout: # Header Bar with menu
             cols:3
+            size_hint_y: None
+            height: "50dp"
             Button: # Ham Menu
                 text:"MENU"
                 size_hint_x: None
+                width: "40dp"
                 id:ham_menu
 
             Label: # question properties (ie subject, revision date, etc)
@@ -44,6 +47,7 @@
             Label: # relevant stats
                 text:"These are some relevant stats"
                 id: stats_feed
+                size_hint_x: None
                 text_size: self.width, self.height
                 valign: "top"
                 halign: "left"

@@ -59,7 +59,7 @@ class QuestionInterface(Widget):
             
         if self.current_question.get("subject") != None:
             self.subject = self.current_question.get("subject")
-            data_label_string = f"{'Subject(s)':<23}:{' & '.join(self.subject)}\n"
+            data_label_string = f"{'Subject(s)'}: {';'.join(self.subject)}\n"
             
             
         if self.current_question.get("related") != None:
@@ -89,13 +89,13 @@ class QuestionInterface(Widget):
             
         if self.current_question.get("revision_streak") != None:    
             self.revision_streak = self.current_question.get("revision_streak")
-            data_label_string += f"{'Streak':<25}:{str(self.revision_streak)}\n"
+            data_label_string += f"{'Streak'}: {str(self.revision_streak)}\n"
         if self.current_question.get("last_revised") != None:
             self.last_revised = self.current_question.get("last_revised")
-            data_label_string += f"{'Last Reviewed':<18}:{str(self.last_revised)}\n"
+            data_label_string += f"{'Last Reviewed'}: {str(self.last_revised)}\n"
         
         # Fill in stats_feed section
-        label_string = f"{'Questions for Review':<25}: {str(len(self.returned_sorted_questions)-(25-len(self.question_list)))}"
+        label_string = f"{'For Review'}: {str(len(self.returned_sorted_questions)-(25-len(self.question_list)))}"
         self.ids.stats_feed.text = label_string
         self.ids.question_data.text = data_label_string
         return None
