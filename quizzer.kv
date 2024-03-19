@@ -20,7 +20,12 @@
     # Scoring and input variables
     user_input:user_input
 
-
+    canvas.before:
+        Color:
+            rgba: (0,0,0,1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
     GridLayout:
         cols:1
@@ -53,46 +58,53 @@
                 halign: "left"
 #########################################################
 # Main Body
-        Label:
-            text:"This is a question"
-            id: question_text
-            text_size: self.width, self.height
-            font_size: "16pt"
-            valign: "top"
-            halign: "left"            
-        Label:
-            text:"This is question media"
-            id: question_media
-            text_size: self.width, self.height
-            
-            valign: "top"
-            halign: "left"  
-        Label:
-            text:""
-            id:answer_text
-            text_size: self.width, self.height
-            font_size: "16pt"
-            valign: "top"
-            halign: "left"              
-        Label:
-            text:""
-            id:answer_media
-            text_size: self.width, self.height
-            valign: "top"
-            halign: "left"  
+        GridLayout:
+            cols:2
+            Label:
+                text:"This is a question"
+                id: question_text
+                text_size: self.width, self.height
+                font_size: "16pt"
+                valign: "top"
+                halign: "left"            
+            Image:
+                source: ""
+                id: question_media
+                #text_size: self.width, self.height
+                
+                valign: "top"
+                halign: "left"  
+            Label:
+                text:""
+                id:answer_text
+                text_size: self.width, self.height
+                font_size: "16pt"
+                valign: "top"
+                halign: "left"              
+            Image:
+                source: ""
+                id:answer_media
+                background_color: (0, 0, 0, 1)
+                # text_size: self.width, self.height
+                valign: "top"
+                halign: "left"  
 
         #########################################################
         GridLayout: # User Input section
             cols:2
             size_hint_y: None
-            height: "150dp"
+            height: "80dp"
             TextInput:
                 multiline:True
                 id:user_input
+                size_hint_y: None
+                height: "80dp"
             Button:
                 text:"Show"
                 size_hint_x: None
+                size_hint_y: None
                 width: "60dp"
+                height: "80dp"
                 on_press: root.show_answer()
         #########################################################
         BoxLayout: # Score Bar
