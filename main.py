@@ -35,7 +35,7 @@ class QuestionInterface(Widget):
         self.display_question()
         self.has_seen_answer = False
         # Startup complete
-        
+
     def make_quiz_if_empty(self):
         if len(self.question_list) <= 0:
             self.question_list, self.returned_sorted_questions = populate_quiz() 
@@ -146,9 +146,9 @@ class QuestionInterface(Widget):
         
     def clear_fields(self):
         self.ids.answer_text.text = ""
-        self.ids.answer_media.text = "" #FIXME
+        self.ids.answer_media.source = ""
         self.ids.question_text.text = ""
-        self.ids.question_media.text = "" #FIXME
+        self.ids.question_media.source = ""
         self.ids.question_data.text = ""
         self.ids.stats_feed.text = ""
         self.ids.user_input.text = ""

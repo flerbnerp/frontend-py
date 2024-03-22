@@ -50,3 +50,6 @@ def initialize_quizzer():
     root = "http://127.0.0.1:8000/"
     command_initialize_quizzer = "initialize_quizzer"
     requests.get(f"{root}{command_initialize_quizzer}")
+    
+def get_subjects():
+    pass

@@ -11344,3 +11344,9 @@ Traceback (most recent call last):
   File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
   File "<frozen importlib._bootstrap>", line 1004, in _find_and_load_unlocked
 ModuleNotFoundError: No module named '/home/karibar/Documents/coding-projects/apps/study_tools/quizzer_repo_master_file/frontend-py/'
+INFO:     Stopping reloader process [251229]
+INFO:     Stopping reloader process [251571]
+INFO:     Stopping reloader process [256264]
+INFO:     Stopping reloader process [251146]
+INFO:     Stopping reloader process [251642]
+INFO:     Stopping reloader process [256150]

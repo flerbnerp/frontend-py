@@ -1,12 +1,41 @@
+#:import Factory kivy.factory.Factory
+
 <Label>
     font_name: "fonts/arialuni.ttf"
 <Button>
     font_name: "fonts/arialuni.ttf"
 <TextInput>
     font_name: "fonts/arialuni.ttf"
+<HamMenu@Popup>
+    subject_settings:subject_settings
+    settings_section:settings_section
+    auto_dismiss: True # dimisses the popup if you click off of it
+    size_hint_x: .5
+    pos_hint: {'x': 0, 'top':1}
+    title: "Subject Priorities"
+    GridLayout:
+        cols:1
+        GridLayout:
+            id: subject_settings
+            cols: 1
+        BoxLayout:
+            id: settings_section
+            size_hint_y: None
+            height: "40dp"
+            Button:
+                text: "Gear"
+            Button:
+                text: "Stat"
+            Button:
+                text: "Other"
+
+        
+        
+
 <QuestionInterface>
     # Variable declarations
     # Header Variables
+
     ham_menu:ham_menu
     question_data:question_data
     stats_feed:stats_feed
@@ -40,6 +69,7 @@
                 size_hint_x: None
                 width: "40dp"
                 id:ham_menu
+                on_release: Factory.HamMenu().open()
 
             Label: # question properties (ie subject, revision date, etc)
                 text:"This is some metadata about the question"
