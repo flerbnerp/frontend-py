@@ -10,14 +10,22 @@
     subject_settings:subject_settings
     settings_section:settings_section
     auto_dismiss: True # dimisses the popup if you click off of it
+    on_open: root.generate_subject_settings()
     size_hint_x: .5
     pos_hint: {'x': 0, 'top':1}
     title: "Subject Priorities"
     GridLayout:
         cols:1
-        GridLayout:
+        GridLayout: #Dynamic based on settings
             id: subject_settings
-            cols: 1
+            cols: 2
+
+        BoxLayout:
+            Button:
+                size_hint_y: None
+                height: "40dp"
+                text: "UPDATE"
+                on_press: root.update_subject_settings()
         BoxLayout:
             id: settings_section
             size_hint_y: None

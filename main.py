@@ -9,7 +9,32 @@ from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 from api_calls import launch_api, populate_quiz, update_score,initialize_quizzer, get_absolute_media_path
+from kivy.uix.popup import Popup
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
 
+class HamMenu(Popup):
+    subject_settings = ObjectProperty(None)
+    settings_section = ObjectProperty(None)
+    def generate_subject_settings(self):
+        settings_data = { #placeholder variable replace with api call to settings.json#FIXME
+            "Setting1": "Value1",
+            "Setting2": "Value2",
+            "Setting3": "Value3"
+        }
+        
+        # this is implemented so we don't end up duplicating our widgets
+        self.subject_settings.clear_widgets()
+        
+        for setting, value in settings_data.items():
+            label = Label(text=f"{setting}")
+            text_input = TextInput(text=f"{value}", multiline=False)
+            self.subject_settings.add_widget(label)
+            self.subject_settings.add_widget(text_input)
+    def update_subject_settings(self):
+        # for TextInput in subject_settings:
+        print("This does nothing yet") #FIXME # Plug in update_setting api call here
+            
 
 class QuestionInterface(Widget):
     #############################
