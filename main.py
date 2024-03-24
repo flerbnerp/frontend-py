@@ -14,6 +14,7 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.metrics import dp
 
+
 class HamMenu(Popup):
 	'''
 	This class exists to dynamically generate our settings page, since subjects are dynamic.
@@ -69,8 +70,9 @@ class QuestionInterface(Widget):
 
 	def display_question(self):
 		'''
+		*First Phase of the Loop*
+
 		Displays a question and returns data about that question
-		First Phase of the Loop
 		'''
 		self.has_seen_answer = False
 		self.make_quiz_if_empty()
@@ -131,8 +133,9 @@ class QuestionInterface(Widget):
 
 	def show_answer(self):
 		'''
+		*Second Phase of the Loop*
+		
 		When button pressed, function shows the answer and enables the use of the scoring buttons
-		Second Phase of the Loop
 		'''
 		if self.answer_text == list:
 			self.answer_text = "\n".join(self.answer_text)
@@ -140,6 +143,7 @@ class QuestionInterface(Widget):
 		self.ids.answer_text.text = str(self.answer_text)
 		if self.answer_media != None: #meaning we have media for this answer
 			self.ids.answer_media.source = str(get_absolute_media_path(str(self.answer_media)))
+	
 	def question_correct(self):
 		if self.has_seen_answer == True:
 			# Update Score, then display the next question
@@ -149,7 +153,6 @@ class QuestionInterface(Widget):
 			self.question_list.pop(0)
 			self.clear_fields()
 			self.display_question()
-
 
 		else:
 			print("Button Disabled")
@@ -165,8 +168,11 @@ class QuestionInterface(Widget):
 
 		else:
 			print("Button Disabled")
+	
 	def question_skip(self):
-		'''Skips the question, removing it from the list with no score update'''
+		'''
+		Skips the question, removing it from the list with no score update
+		'''
 		self.question_list.pop(0)
 		self.clear_fields()
 		self.display_question()
@@ -186,9 +192,8 @@ class Quizzer(App):
 	def build(self):
 		return QuestionInterface()
 
+
 if __name__ == '__main__':
 	# launch_api()
 	initialize_quizzer()
 	Quizzer().run()
-
-
