@@ -15,21 +15,24 @@
     pos_hint: {'x': 0, 'top':1}
     title: "Subject Priorities"
     GridLayout:
-        cols:1
-        GridLayout: #Dynamic based on settings
-            id: subject_settings
-            cols: 2
-
+        cols: 1
+        ScrollView:
+            size_hint_y: 10
+            GridLayout:
+                id: subject_settings
+                cols: 2
+                size_hint_y: None
+                height: self.minimum_height
         BoxLayout:
             Button:
                 size_hint_y: None
-                height: "40dp"
+                height: 40
                 text: "UPDATE"
                 on_press: root.update_subject_settings()
         BoxLayout:
             id: settings_section
             size_hint_y: None
-            height: "40dp"
+            height: 40
             Button:
                 text: "Gear"
             Button:
@@ -113,13 +116,18 @@
                 # keep_ratio: False
                 valign: "top"
                 halign: "left"  
-            Label:
-                text:""
-                id:answer_text
-                text_size: self.width, self.height
-                font_size: "16pt"
-                valign: "top"
-                halign: "left"              
+            ScrollView:
+                size_hint_y: None
+                height: root.height - question_text.height - answer_media.height  # Adjust the height as needed
+                Label:
+                    id: answer_text
+                    text: ""
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    font_size: "16pt"
+                    valign: "top"
+                    halign: "left"           
             Image:
                 source: ""
                 id:answer_media

@@ -1,12 +1,21 @@
 import requests
 import os
 import subprocess
+import json
 from urllib.parse import quote
+
 def launch_api():
     project_root = os.path.dirname(os.path.abspath(__file__))  # Get path of frontend-py
     quizzer_dir = os.path.join(project_root, "..", "quizzer")  # Navigate up two directories
     command = f"nohup uvicorn api:app --reload"
     subprocess.Popen(command, shell=True)
+    
+def get_subject_settings():
+    root = "http://127.0.0.1:8000/"
+    query = root + "get_subject_settings"
+    data = requests.get(f"{query}")
+    subject_settings = data.json()
+    return subject_settings
 
 def get_absolute_media_path(media_file_name):
     # strip check, if the path is surrounded by brackets, strip the brackets off before passing

@@ -8,34 +8,35 @@ from kivy.core.window import Window
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
-from api_calls import launch_api, populate_quiz, update_score,initialize_quizzer, get_absolute_media_path
+from api_calls import launch_api, populate_quiz, update_score,initialize_quizzer, get_absolute_media_path, get_subject_settings
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
+from kivy.metrics import dp
 
 class HamMenu(Popup):
+    '''
+    This class exists to dynamically generate our settings page, since subjects are dynamic.
+    '''
     subject_settings = ObjectProperty(None)
     settings_section = ObjectProperty(None)
     def generate_subject_settings(self):
-        settings_data = { #placeholder variable replace with api call to settings.json#FIXME
-            "Setting1": "Value1",
-            "Setting2": "Value2",
-            "Setting3": "Value3"
-        }
-        
-        # this is implemented so we don't end up duplicating our widgets
+        settings_data = get_subject_settings()
         self.subject_settings.clear_widgets()
         
         for setting, value in settings_data.items():
-            label = Label(text=f"{setting}")
-            text_input = TextInput(text=f"{value}", multiline=False)
+            label = Label(text=f"{setting}", size_hint_y=None,font_size =16, height=dp(24))
+            text_input = TextInput(text=f"{value}", size_hint_y=None, multiline=False, height=dp(24))
             self.subject_settings.add_widget(label)
             self.subject_settings.add_widget(text_input)
     def update_subject_settings(self):
         # for TextInput in subject_settings:
         print("This does nothing yet") #FIXME # Plug in update_setting api call here
-            
-
+ #                text_size: self.width, self.height
+            #    font_size: "16pt"
+            #    valign: "top"
+         #       halign: "left           
+#
 class QuestionInterface(Widget):
     #############################
     # Variable Defines
