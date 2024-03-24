@@ -194,6 +194,6 @@ class Quizzer(App):
 
 
 if __name__ == '__main__':
-	# launch_api()
+	launch_api()
 	initialize_quizzer()
 	Quizzer().run()
