@@ -123,9 +123,12 @@ class QuestionInterface(Widget):
             data_label_string += f"{'Last Reviewed'}: {str(self.last_revised)}\n"
         
         # Fill in stats_feed section
-        label_string = f"{'For Review'}: {str(len(self.returned_sorted_questions)-(25-len(self.question_list)))}"
-        self.ids.stats_feed.text = label_string
-        self.ids.question_data.text = data_label_string
+        try:
+            label_string = f"{'For Review'}: {str(len(self.returned_sorted_questions)-(25-len(self.question_list)))}"
+            self.ids.stats_feed.text = label_string
+            self.ids.question_data.text = data_label_string
+        except TypeError:
+            print("No questions returned")
         return None
     
     def show_answer(self):

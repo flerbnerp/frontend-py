@@ -37,10 +37,16 @@ def populate_quiz():
     root = "http://127.0.0.1:8000/"
     command_pop_quiz = "populate_quiz"
     data = requests.get(f"{root}{command_pop_quiz}")
-    data = data.json()
-    question_list = data["question_list"]
-    returned_sorted_questions = data["sorted_questions"]
-    return question_list, returned_sorted_questions
+    print("find data:$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", data)
+    if str(data) == "<Response [500]>":
+        question_list = [{"file_name": ".ERROR.md", "file_path": "ERROR.md", "type": "question", "subject": ["ERROR_NO_QUESTIONS"], "related": ["ERROR_NO_QUESTIONS", "ERROR"], "question_text": "You have no questions", "revision_streak": 11, "last_revised": "2024-03-23 15:55:47", "next_revision_due": "2024-03-27 21:19:41", "answer_text": "Error", "question_media": "Error", "answer_media": "Error"}]
+        returned_sorted_questions = 5
+        return question_list, returned_sorted_questions
+    else:
+        data = data.json()
+        question_list = data["question_list"]
+        returned_sorted_questions = data["sorted_questions"]
+        return question_list, returned_sorted_questions
 
 def update_score(answer, file_name):
     encoded_file_name = quote(file_name)
