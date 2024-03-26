@@ -68,3 +68,12 @@ def initialize_quizzer():
     
 def get_subjects():
     pass
+#########################################
+# Stats Calls
+def get_average_questions_per_day():
+    root = "http://127.0.0.1:8000/"
+    command_get_average_quetions_per_day = "get_average_questions_per_day"
+    data = requests.get(f"{root}{command_get_average_quetions_per_day}")
+    data = data.json()
+    return data
+

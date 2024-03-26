@@ -74,7 +74,7 @@
         GridLayout: # Header Bar with menu
             cols:3
             size_hint_y: None
-            height: "50dp"
+            height: "60dp"
             Button: # Ham Menu
                 text:"MENU"
                 size_hint_x: None
@@ -94,49 +94,49 @@
                 text:"These are some relevant stats"
                 id: stats_feed
                 size_hint_x: None
+                width: self.width
                 text_size: self.width, self.height
                 valign: "top"
                 halign: "left"
 #########################################################
 # Main Body
         GridLayout:
-            cols:2
-            Label:
-                text:"This is a question"
-                id: question_text
-                text_size: self.width, self.height
-                font_size: "16pt"
-                valign: "top"
-                halign: "left"            
-            Image:
-                source: ""
-                id: question_media
-                text_size: self.width, self.height
-                allow_stretch: True
-                # keep_ratio: False
-                valign: "top"
-                halign: "left"  
-            ScrollView:
-                size_hint_y: None
-                height: root.height - question_text.height - answer_media.height
+            cols:1
+            BoxLayout:
+                Label:
+                    text:"This is a question"
+                    id: question_text
+                    text_size: self.width, self.height
+                    font_size: "16pt"
+                    valign: "top"
+                    halign: "left"            
+                Image:
+                    source: ""
+                    id: question_media
+                    text_size: self.width, self.height
+                    allow_stretch: True
+                    # keep_ratio: False
+                    valign: "top"
+                    halign: "left"  
+            BoxLayout:
                 Label:
                     id: answer_text
                     text: ""
                     text_size: self.width, None
-                    size_hint_y: None
+                    # size_hint_y: None
                     height: self.texture_size[1]
                     font_size: "16pt"
                     valign: "top"
                     halign: "left"           
-            Image:
-                source: ""
-                id:answer_media
-                allow_stretch: True
-                # keep_ratio: False
-                background_color: (0, 0, 0, 1)
-                # text_size: self.width, self.height
-                valign: "top"
-                halign: "left"  
+                Image:
+                    source: ""
+                    id:answer_media
+                    allow_stretch: True
+                    # keep_ratio: False
+                    background_color: (0, 0, 0, 1)
+                    # text_size: self.width, self.height
+                    valign: "top"
+                    halign: "left"  
 
         #########################################################
         GridLayout: # User Input section

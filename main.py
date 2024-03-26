@@ -8,7 +8,14 @@ from kivy.core.window import Window
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
-from api_calls import launch_api, populate_quiz, update_score,initialize_quizzer, get_absolute_media_path, get_subject_settings
+from api_calls import (
+    launch_api, 
+    populate_quiz, 
+    update_score,
+    initialize_quizzer, 
+    get_absolute_media_path, 
+    get_subject_settings,
+    get_average_questions_per_day)
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
@@ -32,11 +39,7 @@ class HamMenu(Popup):
     def update_subject_settings(self):
         # for TextInput in subject_settings:
         print("This does nothing yet") #FIXME # Plug in update_setting api call here
- #                text_size: self.width, self.height
-            #    font_size: "16pt"
-            #    valign: "top"
-         #       halign: "left           
-#
+
 class QuestionInterface(Widget):
     #############################
     # Variable Defines
@@ -121,10 +124,12 @@ class QuestionInterface(Widget):
         if self.current_question.get("last_revised") != None:
             self.last_revised = self.current_question.get("last_revised")
             data_label_string += f"{'Last Reviewed'}: {str(self.last_revised)}\n"
+            data_label_string += f"{'Due Date'}: {str(self.next_revision_due)}\n"
         
         # Fill in stats_feed section
         try:
-            label_string = f"{'For Review'}: {str(len(self.returned_sorted_questions)-(25-len(self.question_list)))}"
+            label_string = f"{'For Review'}: {str(len(self.returned_sorted_questions)-(25-len(self.question_list)))}\n"
+            label_string += f"{'Avg Q:'}: {get_average_questions_per_day():.2f}"
             self.ids.stats_feed.text = label_string
             self.ids.question_data.text = data_label_string
         except TypeError:
