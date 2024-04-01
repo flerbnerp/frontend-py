@@ -9,7 +9,6 @@ from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 from api_calls import (
-    launch_api, 
     populate_quiz, 
     update_score,
     initialize_quizzer, 
