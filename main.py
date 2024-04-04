@@ -1,8 +1,8 @@
 import os
+import subprocess
 import requests
 import time
 from urllib.parse import quote
-
 import kivy
 from kivy.core.window import Window
 from kivy.app import App
@@ -19,6 +19,9 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.metrics import dp
+
+
+
 
 class HamMenu(Popup):
     '''
@@ -98,7 +101,7 @@ class QuestionInterface(Widget):
             self.question_text = self.current_question.get("question_text")
             self.ids.question_text.text = self.question_text
             
-        if self.current_question.get("question_media") != None or self.current_question.get("question_media") != "Error":
+        if self.current_question.get("question_media") != None and self.current_question.get("question_media") != "Error":
             self.question_media = str(self.current_question.get("question_media"))
             print(f"search for me: {self.question_media}")
             self.ids.question_media.source = get_absolute_media_path(self.question_media)
@@ -154,7 +157,7 @@ class QuestionInterface(Widget):
             update_score(answer, file_name)
             self.question_list.pop(0)
             self.clear_fields()
-            self.display_question()
+            
 
             
         else:
@@ -167,7 +170,6 @@ class QuestionInterface(Widget):
             update_score(answer, file_name)
             self.question_list.pop(0)
             self.clear_fields()
-            self.display_question()
 
         else:
             print("Button Disabled")
@@ -175,7 +177,6 @@ class QuestionInterface(Widget):
         '''Skips the question, removing it from the list with no score update'''
         self.question_list.pop(0)
         self.clear_fields()
-        self.display_question()
         
     def clear_fields(self):
         self.ids.answer_text.text = ""
@@ -185,6 +186,7 @@ class QuestionInterface(Widget):
         self.ids.question_data.text = ""
         self.ids.stats_feed.text = ""
         self.ids.user_input.text = ""
+        self.display_question()
     
     
     
@@ -193,8 +195,7 @@ class Quizzer(App):
         return QuestionInterface()
 
 if __name__ == '__main__':
-    # launch_api()
     initialize_quizzer()
-    Quizzer().run()    
+    Quizzer().run()
 
 

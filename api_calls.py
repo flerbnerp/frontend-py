@@ -1,15 +1,7 @@
 import requests
-import os
-import subprocess
 import json
 from urllib.parse import quote
 
-# def launch_api():
-#     project_root = os.path.dirname(os.path.abspath(__file__))  # Get path of frontend-py
-#     quizzer_dir = os.path.join(project_root, "..", "quizzer")  # Navigate up two directories
-#     command = f"nohup uvicorn api:app --reload"
-#     subprocess.Popen(command, shell=True)
-    
 def get_subject_settings():
     root = "http://127.0.0.1:8000/"
     query = root + "get_subject_settings"
@@ -76,4 +68,3 @@ def get_average_questions_per_day():
     data = requests.get(f"{root}{command_get_average_quetions_per_day}")
     data = data.json()
     return data
-
