@@ -100,43 +100,51 @@
                 halign: "left"
 #########################################################
 # Main Body
-        GridLayout:
-            cols:1
+        BoxLayout:
+            orientation: "vertical"
             BoxLayout:
+                size_hint_y: 0.5
                 Label:
-                    text:"This is a question"
+                    text: "This is a question"
                     id: question_text
-                    text_size: self.width, self.height
+                    text_size: self.size
                     font_size: "16pt"
                     valign: "top"
-                    halign: "left"            
-                Image:
-                    source: ""
-                    id: question_media
-                    text_size: self.width, self.height
-                    allow_stretch: True
-                    # keep_ratio: False
-                    valign: "top"
-                    halign: "left"  
+                    halign: "left"
+                RelativeLayout:
+                    Image:
+                        source: ""
+                        id: question_media
+                        size_hint:1,1
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        allow_stretch: True
             BoxLayout:
-                Label:
-                    id: answer_text
-                    text: ""
-                    text_size: self.width, None
-                    # size_hint_y: None
-                    height: self.texture_size[1]
-                    font_size: "16pt"
-                    valign: "top"
-                    halign: "left"           
-                Image:
-                    source: ""
-                    id:answer_media
-                    allow_stretch: True
-                    # keep_ratio: False
-                    background_color: (0, 0, 0, 1)
-                    # text_size: self.width, self.height
-                    valign: "top"
-                    halign: "left"  
+                orientation: "horizontal"
+                size_hint_y: 0.5
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint_x: 0.2 if answer_media.source else 1
+
+                    ScrollView:
+                        do_scroll_x: False
+                        Label:
+                            id: answer_text
+                            text: ""
+                            text_size: self.width, None
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            font_size: "16pt"
+                            valign: "top"
+                            halign: "left"
+                RelativeLayout:
+                    size_hint_x: 0.8 if answer_media.source else 0
+                    Image:
+                        source: ""
+                        id: answer_media
+                        size_hint: 1, 1
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        allow_stretch: True
 
         #########################################################
         GridLayout: # User Input section
